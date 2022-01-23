@@ -8,20 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showDetail = false
+    @State private var name = ""
+    @State private var password = ""
     var body: some View {
         VStack {
-            Button(action: {
-                self.showDetail.toggle()
-            }) {
-                
-                Text("Show details")
-            } .padding()
-                .background(Color.green)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-            if showDetail {
-                Text("Some details here...")
-            }
+            TextField("Enter your name", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            SecureField("Enter you password", text: $password)
+            Text("Hello, \(name)")
+            Text("\(password)")
         }
     }
     

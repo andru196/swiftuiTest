@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    private var colors = ["black", "white", "red", "green", "blue"]
-    @State private var selectedColor = 0
+    @State private var age = 18
     var body: some View {
         VStack {
-            Picker(selection: $selectedColor, label: Text("Choose a color")) {
-                ForEach(0..<colors.count) { index in
-                    Text(self.colors[index])
-                }
-            } .pickerStyle(.segmented)
-            Text("Yoy selected: \(colors[selectedColor])")
+//            Stepper("Enter your age", value: $age, in: 0...130)
+            Stepper("Enter your age", onIncrement: {
+                self.age += 1
+                print("Adding to age")
+            }, onDecrement: {
+                self.age -= 1
+                print("Subtracing from age")
+            })
+            Text("Your age is \(age)")
         }
     }
     

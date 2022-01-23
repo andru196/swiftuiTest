@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var celsius: Double = 0
+    private var colors = ["black", "white", "red", "green", "blue"]
+    @State private var selectedColor = 0
     var body: some View {
         VStack {
-            Slider(value: $celsius, in: -100...100, step: 0.1)
-            Text("\(celsius) Celsius is \(celsius * 9 / 5 + 32) Fahrenheit")
+            Picker(selection: $selectedColor, label: Text("Choose a color")) {
+                ForEach(0..<colors.count) { index in
+                    Text(self.colors[index])
+                }
+            } .pickerStyle(.segmented)
+            Text("Yoy selected: \(colors[selectedColor])")
         }
     }
     

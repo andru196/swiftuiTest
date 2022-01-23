@@ -9,12 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack(alignment: .center, spacing: 100) {
-            Text("some text")
-                .padding(.bottom, 50)
-            Divider()
-            Text("some text")
-        }
+            Text("some text some text some text some text some text some text some text some text")
+            .kerning(5)
+            .tracking(5)
+            .padding(.bottom, 50)
+                .lineLimit(3)
+                .truncationMode(.middle)
+                .font(.largeTitle)
+                .multilineTextAlignment(.center)
+                .background(Color.blue)
+                .lineSpacing(50)
     }
 
     

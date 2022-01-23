@@ -6,42 +6,74 @@
 //
 
 import SwiftUI
+//first
+//struct MusicRow: View {
+//
+//    var name: String
+//
+//    var body: some View {
+//        Text("Music: \(name)")
+//    }
+//}
+//
+//struct ContentView: View {
+//    var body: some View {
+//        List {
+//            MusicRow(name: "Rock")
+//            MusicRow(name: "Rap")
+//            MusicRow(name: "Classical")
+//        }
+//    }
+//}
+
+//sec
+//struct Restaurant: Identifiable {
+//    var id = UUID()
+//    var name: String
+//}
+//
+//struct RestaurantRow: View {
+//    var restaurant: Restaurant
+//    var body: some View {
+//        Text("Cum & eat at \(restaurant.name)")
+//    }
+//}
+//
+//struct ContentView: View {
+//    var body: some View {
+//        let first = Restaurant(name: "FirstRestaurant")
+//        let secont = Restaurant(name: "SecondRestaurant")
+//        let third = Restaurant(name: "ThirdRestaurand")
+//        let restaurants = [first, secont, third]
+//        return List (restaurants) {
+//            RestaurantRow(restaurant: $0)
+//        }
+//    }
+//}
+
+/// third
+
+struct TaskRow: View {
+    var body: some View {
+        Text("Some task")
+    }
+}
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            //            Text("Tap me")
-            //                .onTapGesture{
-            //                    print("Tapped!")
-            //                }
-            Image("cus")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .onTapGesture(count:2) {
-                    print("Double tapped")
-                }
-                .gesture(
-                    LongPressGesture(minimumDuration: 2)
-                        .onEnded { _ in
-                            print("Pressed")
-                        }
-                )
-                .gesture(DragGesture(minimumDistance: 50)
-                            .onEnded { _ in
-                    print("Dragged")
-                })
-            Spacer()
-            Text("Apple")
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            print("Hello, Apple")
-        }
-        
+        List {
+            Section(header: Text("Important tasks")) {
+                TaskRow()
+                TaskRow()
+                TaskRow()
+            }
+            
+            Section(header: Text("Other tasks")) {
+                TaskRow()
+                TaskRow()
+                TaskRow()
+            } .listRowBackground(Color.yellow)
+        } .listStyle(GroupedListStyle())
     }
-    
-    
 }
-
-
 

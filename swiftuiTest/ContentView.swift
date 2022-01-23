@@ -8,15 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var name = ""
-    @State private var password = ""
+    @State private var celsius: Double = 0
     var body: some View {
         VStack {
-            TextField("Enter your name", text: $name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            SecureField("Enter you password", text: $password)
-            Text("Hello, \(name)")
-            Text("\(password)")
+            Slider(value: $celsius, in: -100...100, step: 0.1)
+            Text("\(celsius) Celsius is \(celsius * 9 / 5 + 32) Fahrenheit")
         }
     }
     

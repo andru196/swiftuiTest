@@ -9,18 +9,24 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-            Text("some text some text some text some text some text some text some text some text")
-            .kerning(5)
-            .tracking(5)
-            .padding(.bottom, 50)
-                .lineLimit(3)
-                .truncationMode(.middle)
-                .font(.largeTitle)
-                .multilineTextAlignment(.center)
-                .background(Color.blue)
-                .lineSpacing(50)
+//        Image("cus")
+//            .resizable()
+//            .aspectRatio(contentMode: .fit)
+        Image(systemName: "cloud.sun.fill") // SF Symbols 3
+            .font(.largeTitle)
+            .padding(30)
+            //.background(Color.green)
+//            .background(Image("cus")
+//                            .resizable()
+//                            .frame(width: 200, height: 200))
+            .background(Circle()
+                            .fill(Color.red))
+            .foregroundColor(.blue)
+//            .clipShape(Circle())
+//            .clipShape(RoundedRectangle(cornerRadius: 30))
+            .clipShape(Capsule())
     }
-
+    
     
 }
 

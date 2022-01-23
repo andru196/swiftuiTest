@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
+//    var body: some View {
+//        Text("Hello World")
+//            .font(.largeTitle)
+//            .padding()
+//            .foregroundColor(.white)
+//            .background(LinearGradient(colors: [.black, .white], startPoint: .top, endPoint: .bottom))
+//    }
+    
     var body: some View {
-//        Image("cus")
-//            .resizable()
-//            .aspectRatio(contentMode: .fit)
-        Image(systemName: "cloud.sun.fill") // SF Symbols 3
-            .font(.largeTitle)
-            .padding(30)
-            //.background(Color.green)
-//            .background(Image("cus")
-//                            .resizable()
-//                            .frame(width: 200, height: 200))
-            .background(Circle()
-                            .fill(Color.red))
-            .foregroundColor(.blue)
-//            .clipShape(Circle())
-//            .clipShape(RoundedRectangle(cornerRadius: 30))
-            .clipShape(Capsule())
+        let colors = Gradient(colors: [.red, .green, .yellow, .blue, .purple])
+//        let gradient = RadialGradient(gradient: colors, center: .center, startRadius: 50, endRadius: 200)
+        let gradient = AngularGradient(gradient: colors, center: .center)
+        return Circle()
+            .strokeBorder(gradient, lineWidth: 20)
+//            .fill(gradient)
+//            .frame(width: 400, height: 400)
     }
     
     

@@ -1,79 +1,44 @@
-//
-//  ContentView.swift
-//  swiftuiTest
-//
-//  Created by Andrew Tarasow on 23.01.2022.
-//
-
 import SwiftUI
-//first
-//struct MusicRow: View {
-//
-//    var name: String
-//
-//    var body: some View {
-//        Text("Music: \(name)")
-//    }
-//}
-//
+
 //struct ContentView: View {
 //    var body: some View {
-//        List {
-//            MusicRow(name: "Rock")
-//            MusicRow(name: "Rap")
-//            MusicRow(name: "Classical")
+//        NavigationView {
+//            Text("SwiftUI")
+//                .navigationTitle("WellCum")
+//                .navigationBarTitleDisplayMode(.inline)
+//                .navigationBarItems(trailing: HStack {
+//                    Button("Help") {
+//                        print("Help tapped")
+//                    }
+//
+//                    Button("About") {
+//                        print("About tapped")
+//                    }
+//                })
 //        }
 //    }
 //}
-
-//sec
-//struct Restaurant: Identifiable {
-//    var id = UUID()
-//    var name: String
-//}
 //
-//struct RestaurantRow: View {
-//    var restaurant: Restaurant
-//    var body: some View {
-//        Text("Cum & eat at \(restaurant.name)")
-//    }
-//}
-//
-//struct ContentView: View {
-//    var body: some View {
-//        let first = Restaurant(name: "FirstRestaurant")
-//        let secont = Restaurant(name: "SecondRestaurant")
-//        let third = Restaurant(name: "ThirdRestaurand")
-//        let restaurants = [first, secont, third]
-//        return List (restaurants) {
-//            RestaurantRow(restaurant: $0)
-//        }
-//    }
-//}
-
-/// third
-
-struct TaskRow: View {
-    var body: some View {
-        Text("Some task")
-    }
-}
 
 struct ContentView: View {
+    @State private var users = ["Users", "Maria", "Igor"]
     var body: some View {
-        List {
-            Section(header: Text("Important tasks")) {
-                TaskRow()
-                TaskRow()
-                TaskRow()
+        NavigationView {
+            List {
+                ForEach (users, id:\.self) {
+                    Text($0)
+                } .onDelete(perform: delete)
+                    .onMove(perform: move)
             }
-            
-            Section(header: Text("Other tasks")) {
-                TaskRow()
-                TaskRow()
-                TaskRow()
-            } .listRowBackground(Color.yellow)
-        } .listStyle(GroupedListStyle())
+            .navigationBarItems(trailing: EditButton())
+        }
+    }
+    func delete (at offsets: IndexSet) {
+        users.remove(atOffsets: offsets)
+    }
+    
+    func move (from source: IndexSet, to destination: Int) {
+        users.move(fromOffsets: source, toOffset: destination)
     }
 }
 

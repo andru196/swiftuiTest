@@ -8,19 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var age = 18
     var body: some View {
         VStack {
-//            Stepper("Enter your age", value: $age, in: 0...130)
-            Stepper("Enter your age", onIncrement: {
-                self.age += 1
-                print("Adding to age")
-            }, onDecrement: {
-                self.age -= 1
-                print("Subtracing from age")
-            })
-            Text("Your age is \(age)")
+            //            Text("Tap me")
+            //                .onTapGesture{
+            //                    print("Tapped!")
+            //                }
+            Image("cus")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .onTapGesture(count:2) {
+                    print("Double tapped")
+                }
+                .gesture(
+                    LongPressGesture(minimumDuration: 2)
+                        .onEnded { _ in
+                            print("Pressed")
+                        }
+                )
+                .gesture(DragGesture(minimumDistance: 50)
+                            .onEnded { _ in
+                    print("Dragged")
+                })
+            Spacer()
+            Text("Apple")
         }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            print("Hello, Apple")
+        }
+        
     }
     
     

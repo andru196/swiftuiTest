@@ -1,45 +1,33 @@
 import SwiftUI
 
-//struct ContentView: View {
-//
-//    @State private var selectedView = 1
-//
-//    var body: some View {
-//        TabView(selection: $selectedView) {
-//            Text("First View")
-//                .tabItem {
-//                    Image(systemName: "1.circle")
-//                    Text("First")
-//                } .tag(1)
-//            Text("Second View")
-//                .tabItem {
-//                    Image(systemName: "2.circle")
-//                    Text("Second")
-//                } .tag(2)
-//        }
-//    }
-//}
-
 struct ContentView: View {
-        
+    
+    @State private var colors = ["Red", "Green", "Blue"]
+    @State private var selectedColors = 0
+    @State private var additionalSettings = false
+    
     var body: some View {
-        VStack {
-            Group {
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
+        NavigationView {
+            Form {
+                Section(header: Text("Colors")) {
+                    Picker(selection: $selectedColors, label: Text("Select a coolor")) {
+                        ForEach (0..<colors.count) {
+                            Text(self.colors[$0])
+                        }
+                    } .pickerStyle(SegmentedPickerStyle())
+                }
+                Toggle(isOn: $additionalSettings) {
+                    Text("Additional settings")
+                }
+                Button(action: {
+                    
+                }) {
+                    Text("Save changes")
+                } .disabled(!additionalSettings)
+                
+                
             }
-            
-            Group {
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-                Text("Hello, World!")
-            }
-        }
+        } .navigationBarTitle("Settings")
     }
 }
 

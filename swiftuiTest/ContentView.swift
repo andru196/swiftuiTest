@@ -1,43 +1,49 @@
 import SwiftUI
 
-struct CustomModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .font(.largeTitle)
-            .padding()
-            .foregroundColor(.red)
-            .background(Color.green)
-    }
-}
+// property wrappers:
+// @State - подходит для структур
+// @ObservedObject - требует экземпляры ObservableObject
+// @EnvironmentObject - можно делиться даннами со всеми view 
+// @Published
 
-struct CustomText: View {
-    var name: String
-    
-    var body: some View {
-        Text(name)
-            .font(.largeTitle)
-            .padding()
-            .foregroundColor(.red)
-            .background(Color.green)
-    }
-}
 
-extension View  {
-    func customM() -> some View {
-        self.modifier(CustomModifier())
-    }
-}
+//class User: ObservableObject {
+//    @Published var firstName = "Ivan"
+//    @Published var lastName = "Petrov"
+//}
+//
+//struct ContentView: View {
+//
+//    @ObservedObject var user = User()
+//
+//    var body: some View {
+//        VStack() {
+//            Text("Your name is \(user.firstName) \(user.lastName)")
+//            TextField("First Name", text: $user.firstName)
+//            TextField("Last Name", text: $user.lastName)
+//        }
+//    }
+//}
+
 
 struct ContentView: View {
     
-    @State private var useGreenText = false
+    @ObservedObject var settings = UserSettings()
     
     var body: some View {
-        VStack(spacing: 30) {
-            CustomText(name: "First")
-            Text("Second").modifier(CustomModifier())
-            Text("Third").customM()
-                
+        VStack {
+            Text("Your settings is \(settings.score)")
+            Button(action: {
+                self.settings.score += 1
+            }) {
+                Text("Increase Score")
+            }
         }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }

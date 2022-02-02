@@ -1,94 +1,40 @@
 import SwiftUI
 
-/// First part
-//struct DetailView: View {
-//    var body: some View {
-//        Text("This is the detail view")
-//    }
-//}
-//
-//
 //struct ContentView: View {
 //
-//    var body: some View {
-//        NavigationView {
-//            VStack {
-//                NavigationLink(destination: DetailView()) { Text("Show detail View")
-//                }.navigationBarTitle("Navigation")
-//            }
-//        }
-//    }
-//}
-
-/// Second part
-//struct Dog: Identifiable {
-//    var id = UUID()
-//    var name: String
-//}
+//    private static let key = "Tap"
 //
-//struct DogRow: View {
-//    var dog: Dog
+//    @State private var tapCount = UserDefaults.standard.integer(forKey: key)
 //
 //    var body: some View {
-//        Text(dog.name)
-//    }
-//}
-//
-//struct DogView: View {
-//    var dog: Dog
-//
-//    var body: some View {
-//        Text("Come and choose a \(dog.name)")
-//    }
-//}
-//
-//struct ContentView: View {
-//
-//    var body: some View {
-//        let first = Dog(name: "Sobaka")
-//        let second = Dog(name: "Doggg")
-//        let dogs = [first, second]
-//
-//        return NavigationView {
-//
-//            List(dogs) { dog in
-//                NavigationLink(destination: DogView(dog: dog)) {
-//                    DogRow(dog: dog)
-//                }
-//            } .navigationTitle("Choose a dog")
+//        Button("Tap count: \(tapCount)") {
+//            self.tapCount += 1
+//            UserDefaults.standard.set(self.tapCount, forKey: ContentView.key)
 //        }
 //    }
 //}
 
 
-/// Third part
-
-struct DetailView: View {
-    
-    @Environment(\.presentationMode) var presentationMode
-    var body: some View {
-        Text("Detail")
-        Button("Back") {
-            self.presentationMode.wrappedValue.dismiss()
-        }
-    }
+struct User : Codable {
+    var firstName: String
+    var lastName: String
 }
+
+// JSON Encoder
 
 struct ContentView: View {
 
-    @State private var showingDetail = false
+    @State private var user = User(firstName:"Ivan", lastName: "Petrov")
     
     var body: some View {
-        Button(action: {
-            self.showingDetail.toggle()
-        }) {
-            Text("Show detail")
-        } .sheet(isPresented: $showingDetail) {
-            DetailView()
+        Button("Save user") {
+            let encoder = JSONEncoder()
+            if let data = try? encoder.encode(self.user) {
+                UserDefaults.standard.set(data, forKey: "User")
+            }
         }
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

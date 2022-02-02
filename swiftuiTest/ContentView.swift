@@ -1,65 +1,72 @@
 import SwiftUI
 
-//struct ContentView: View {
-//
-//    @State private var showingALert1 = false
-//    @State private var showingALert2 = false
-//
-//    var body: some View {
-//        HStack {
-//            Button("Show 1") {
-//                self.showingALert1 = true
-//            } .alert(isPresented: $showingALert1) {
-//                Alert(title: Text("One"),
-//                      message: Text("Some detail msg"),
-//                      dismissButton: .default(Text("OK")))
-//            }
-//
-//            Button("Show 2") {
-//                self.showingALert2 = true
-//            } .alert(isPresented: $showingALert2) {
-//                Alert(title: Text("Two"),
-//                      message: Text("Some detail msg"),
-//                      dismissButton: .cancel())
-//            }
-//        }
-//    }
-//}
-
-//struct ContentView: View {
-//
-//    @State private var showingALert = false
-//
-//    var body: some View {
-//        Button(action: {
-//            self.showingALert = true
-//        }) {
-//            Text("Show Alert")
-//        } .alert(isPresented: $showingALert) {
-//            Alert(title: Text("Are u sure u esmy to delete this?"), message: Text("There is no wat back"), primaryButton: .destructive(Text("Delete")) {
-//                print("Deleting...")
-//            }, secondaryButton: .cancel())
-//
-//
-//        }
-//    }
-//}
-
 struct ContentView: View {
     
-    @State private var showingALert = false
+    @State private var countries = ["Abhazja", "Afganistan", "Albaniya", "Algir", "Andorra", "Angola", "AntiguaBapbuda", "Argentina", "Armeniya", "Avstraliya", "Avstriya", "Azerbaidzan", "BagamckieOstrova", "Bahrejn", "Bangladesh", "Barbados", "Belgija", "Beliz", "Belorussija", "Benin", "Bolgarija", "Bolivija", "BosnijaGertsegovina", "Botsvana", "Brazilija", "BritishVirginIslands", "Bruney", "BurkinaFaso", "England", "Russia"].shuffled()
+    @State private var correctAnswer = Int.random(in: 0...2)
+    @State private var score = 0
+    @State private var showingScore = false
+    @State private var scoreTitle = ""
     
     var body: some View {
-        Button(action: {
-            self.showingALert = true
-        }) {
-            Text("Show action Sheets")
-        } .actionSheet(isPresented: $showingALert) {
-            ActionSheet(title: Text("What do you want to do?"),
-                        message: Text("There is only one choise"),
-                        buttons: [.default(Text("Dismiss Action Sheet")),
-                                  .cancel(),
-                                  .destructive(Text("Delete"))])
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [.black, .white]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(.all)
+            VStack(spacing: 30) {
+                VStack {
+                    Text("Choose Flag")
+                        .foregroundColor(.white)
+                        .font(.headline)
+                    Text(countries[correctAnswer])
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .fontWeight(.black)
+                    
+                }
+                
+                ForEach(0..<3) { number in
+                    Button(action: {
+                        self.flagTapped(number)
+                        showingScore = true
+                    }) {
+                        Image(self.countries[number])
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                        //.renderingMode(.original)
+                            .frame(width: 250, height: 125)
+                            .clipShape(Capsule())
+                            .overlay(Capsule()
+                                        .stroke(Color.black, lineWidth: 1))
+                            .shadow(color: .black, radius: 2)
+                    }
+                }
+                Text("Total Scor \(score)")
+                    .font(.largeTitle)
+                    .fontWeight(.black)
+                Spacer()
+            }
+            .alert(isPresented: $showingScore) {
+                Alert(title: Text(scoreTitle),
+                      message: Text("Total Score \(score)"), dismissButton: .default(Text("Continue")) {
+                    askQuestion()
+                })
+            }
+            
+        }
+        
+    }
+    func askQuestion() {
+        countries.shuffled()
+        correctAnswer = Int.random(in: 0...2)
+    }
+    
+    func flagTapped(_ number: Int) {
+        if number == correctAnswer {
+            score += 1
+            scoreTitle = "Correct answer"
+        } else {
+            scoreTitle = "Uncorrect! It is \(countries[number]) Correct is \(correctAnswer + 1)"
+            score -= 1
         }
     }
 }

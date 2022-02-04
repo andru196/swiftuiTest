@@ -1,39 +1,67 @@
 import SwiftUI
 
-//struct ContentView: View {
-//
-//    private static let key = "Tap"
-//
-//    @State private var tapCount = UserDefaults.standard.integer(forKey: key)
-//
-//    var body: some View {
-//        Button("Tap count: \(tapCount)") {
-//            self.tapCount += 1
-//            UserDefaults.standard.set(self.tapCount, forKey: ContentView.key)
-//        }
-//    }
-//}
-
-
-struct User : Codable {
-    var firstName: String
-    var lastName: String
+struct ExpenseItem : Identifiable, Codable {
+    let id = UUID()
+    let name: String
+    let type: String
+    let amount: Int
 }
 
-// JSON Encoder
-
-struct ContentView: View {
-
-    @State private var user = User(firstName:"Ivan", lastName: "Petrov")
-    
-    var body: some View {
-        Button("Save user") {
+class Expenses: ObservableObject {
+    @Published var items = [ExpenseItem]() {
+        didSet {
             let encoder = JSONEncoder()
-            if let data = try? encoder.encode(self.user) {
-                UserDefaults.standard.set(data, forKey: "User")
+            if let encoded = try? encoder.encode(items) {
+                UserDefaults.standard.set(encoded, forKey: "Items")
             }
         }
     }
+    init() {
+        if let items = UserDefaults.standard.data(forKey: "Items") {
+            let decoder = JSONDecoder()
+            if let decoded = try? decoder.decode([ExpenseItem].self, from: items) {
+                self.items = decoded
+            }
+        }
+    }
+}
+
+struct ContentView: View {
+    
+    @State private var showingAddExpense = false
+    @ObservedObject var expenses = Expenses()
+    
+    var body: some View {
+        NavigationView() {
+            List {
+                ForEach(expenses.items, id: \.id) { item in
+                    HStack {
+                        VStack {
+                            Text(item.name)
+                                .font(.headline)
+                            Text(item.type)
+                        }
+                        Spacer()
+                        Text("$\(item.amount)")
+                    }
+                }
+            .onDelete(perform: removeItems)
+        }
+        .navigationBarTitle("Мои расходы")
+        .navigationBarItems(trailing:
+                                Button(action: {
+            self.showingAddExpense = true
+        }) {
+            Image(systemName: "plus")
+        })
+        .sheet(isPresented: $showingAddExpense){
+            AddView(expenses: self.expenses)
+        }
+    }
+}
+func removeItems(as offsets: IndexSet) {
+    expenses.items.remove(atOffsets: offsets)
+}
 }
 
 struct ContentView_Previews: PreviewProvider {

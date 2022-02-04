@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20D386527ADB3BF00A57981 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20D386427ADB3BF00A57981 /* AddView.swift */; };
 		B235C5DB279DB42E0015BCA7 /* swiftuiTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B235C5DA279DB42E0015BCA7 /* swiftuiTestApp.swift */; };
 		B235C5DD279DB42E0015BCA7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B235C5DC279DB42E0015BCA7 /* ContentView.swift */; };
 		B235C5DF279DB42F0015BCA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B235C5DE279DB42F0015BCA7 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B20D386427ADB3BF00A57981 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
 		B235C5D7279DB42E0015BCA7 /* swiftuiTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swiftuiTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B235C5DA279DB42E0015BCA7 /* swiftuiTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftuiTestApp.swift; sourceTree = "<group>"; };
 		B235C5DC279DB42E0015BCA7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 			children = (
 				B235C5DA279DB42E0015BCA7 /* swiftuiTestApp.swift */,
 				B235C5DE279DB42F0015BCA7 /* Assets.xcassets */,
+				B20D386427ADB3BF00A57981 /* AddView.swift */,
 				B235C5DC279DB42E0015BCA7 /* ContentView.swift */,
 				B235C5E3279DB42F0015BCA7 /* Persistence.swift */,
 				B235C5E5279DB42F0015BCA7 /* swiftuiTest.xcdatamodeld */,
@@ -265,6 +268,7 @@
 			files = (
 				B235C5E4279DB42F0015BCA7 /* Persistence.swift in Sources */,
 				B235C5DD279DB42E0015BCA7 /* ContentView.swift in Sources */,
+				B20D386527ADB3BF00A57981 /* AddView.swift in Sources */,
 				B235C5DB279DB42E0015BCA7 /* swiftuiTestApp.swift in Sources */,
 				B235C5E7279DB42F0015BCA7 /* swiftuiTest.xcdatamodeld in Sources */,
 			);

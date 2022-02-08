@@ -1,23 +1,63 @@
 import SwiftUI
 
 //struct ContentView: View {
-//
+//    //                      core graphics
+//    @State private var scale: CGFloat = 1
+//    var body: some View {
+//        Button(action: {
+//            self.scale += 1
+//        }) {
+//            Text("Tap me")
+//                .scaleEffect(scale)
+//                //.animation(.linear(duration: 5))
+////                .animation(.easeIn) //применяется к модификатору выше
+//                .animation(.easeOut)
+//        }
+//    }
+//}
+
+//struct ContentView: View {
+//    @State private var angle: Double = 0
+//    @State private var borderThickness: CGFloat = 1
+//    var body: some View {
+//        Button(action: {
+//            self.angle += 45
+//            self.borderThickness += 1
+//        }) {
+//            Text("Tap me")
+//                .padding()
+//                .border(Color.red, width: borderThickness)
+//                .rotationEffect(.degrees(angle))
+//                .animation(.easeIn)
+//        }
+//    }
+//}
+
+//struct ContentView: View {
+//    @State private var angle: Double = 0
+//    var body: some View {
+//        Button(action: {
+//            self.angle += 45
+//        }) {
+//            Text("Tap me")
+//                .padding()
+//                .rotationEffect(.degrees(angle))
+////                .animation(.spring())
+//                .animation(.interpolatingSpring(mass: 1, stiffness: 1, damping: 0.5, initialVelocity: 5))
+//        }
+//    }
+//}
+
+//struct ContentView: View {
+//    @State private var showingWelcome = false
 //    var body: some View {
 //        VStack {
-//            Text("First")
-//            Text("Second")
-//                .offset(y:15)
-//                .padding(.bottom, 2)
-//            Text("Third")
-//            ZStack(alignment: .bottomTrailing) {
-//                Image("cus")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//                Text("This photo was made by: ")
-//                    .padding(4)
-//                    .background(Color.black)
-//                    .foregroundColor(.white)
-//                    .offset(x:-7, y: -7)
+//            Toggle(isOn: $showingWelcome.animation(.spring()))
+//            {
+//                Text("Toggle label")
+//            }
+//            if showingWelcome {
+//                Text("Hello, SwiftUI!")
 //            }
 //        }
 //    }
@@ -25,132 +65,50 @@ import SwiftUI
 
 
 //struct ContentView: View {
-//
-//    var body: some View {
-//        Text("Hello, Swift")
-//            .font(.largeTitle)
-//            .padding()
-//            .background(Color.orange)
-//            .padding()
-//            .background(Color.green)
-//            .padding()
-//            .background(Color.blue)
-//            .padding()
-//            .border(Color.red, width: 5)
-//    }
-//}
-
-
-//struct ContentView: View {
-//
-//    var body: some View {
-//        Text("Hello, Swift")
-//            .padding()
-//            .overlay(RoundedRectangle(cornerRadius: 15)
-//                        .stroke(Color.green, lineWidth: 5))
-//    }
-//}
-
-
-//struct ContentView: View {
-//
-//    var body: some View {
-//       Circle()
-//            .stroke(Color.red, style:
-//            StrokeStyle(lineWidth: 5, dash: [10, 2]))
-////            .strokeBorder(Color.red, lineWidth: 10)
-//            .frame(width: 200, height: 200)
-//    }
-//}
-
-//
-//struct ContentView: View {
-//
-//    var body: some View {
-//       Text("Hello, Swift")
-//            .padding()
-//            .border(Color.red, width: 5)
-//            .shadow(color: .red, radius: 4, x: 10, y: 10)
-//    }
-//}
-
-
-
-//struct ContentView: View {
-//
+//    @State private var opacity: Double = 1
 //    var body: some View {
 //        Button(action: {
-//            print("Button tapped")
+//            withAnimation(.linear(duration: 3)) {
+//                self.opacity -= 1
+//            }
 //        }) {
-//            Image(systemName: "cloud.fill")
-//                .foregroundColor(.white)
+//            Text("Tap me")
 //                .padding()
-//                .background(Color.orange)
-//                .clipShape(Circle())
+//                .opacity(opacity)
 //        }
 //    }
 //}
 
 
 //struct ContentView: View {
-//
 //    @State private var rotation = 0.0
 //    var body: some View {
-//        VStack {
-//            Slider(value: $rotation, in:0...360, step: 1.0)
-//            Text("Hello, Swift")
-//                .rotationEffect(.degrees(rotation), anchor: .topLeading)
-//        }
+//        Rectangle()
+//            .fill(Color.green)
+//            .frame(width: 200, height: 200)
+//            .rotationEffect(.degrees(rotation))
+//            .animation(Animation.easeOut(duration: 3).delay(1))
+//            .onTapGesture {
+//                self.rotation += 180
+//            }
 //    }
 //}
-
-
-//struct ContentView: View {
-//
-//    var body: some View {
-//        VStack {
-//            Text("Hello, Swift")
-//                .font(.largeTitle)
-//                .rotation3DEffect(.degrees(45), axis: (x:1, y:1, z:2))
-//        }
-//    }
-//}
-
-//struct ContentView: View {
-//
-//    var body: some View {
-//        VStack {
-//            Text("Hello, Swift")
-//                .scaleEffect(3, anchor: .bottomLeading)
-//        }
-//    }
-//}
-
-
-//struct ContentView: View {
-//
-//    var body: some View {
-//        VStack {
-//            Text("Hello, Swift")
-//                .padding()
-//                .background(Color.green)
-//                .cornerRadius(20)
-//                .opacity(0.75)
-//                .blur(radius: 2)
-//        }
-//    }
-//}
-
 
 struct ContentView: View {
-        
+    @State private var scale: CGFloat = 1
     var body: some View {
-        Image("cus")
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .colorMultiply(.red)
-            .contrast(0.5)
-        
+        Rectangle()
+            .fill(Color.green)
+            .frame(width: 200, height: 200)
+            .scaleEffect(scale)
+            .onAppear{
+                let baseAnimation = Animation.easeOut(duration: 1)
+                let repeated = baseAnimation
+                    .repeatForever(autoreverses: true)
+                return withAnimation(repeated) {
+                    self.scale = 0.5
+                }
+            }
     }
 }
 
